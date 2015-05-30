@@ -1,5 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Web.Mvc;
+using WorkshopExpert.Core.Entities;
+
+
 
 namespace WorkshopExpert.Web.Models
 {
@@ -70,6 +74,32 @@ namespace WorkshopExpert.Web.Models
         public string Email { get; set; }
 
         [Required]
+        [Display(Name = "First Name")]
+        public string FirstName { get; set; }
+
+        [Required]
+        [Display(Name = "Last Name")]
+        public string LastName { get; set; }
+
+        [Required]
+        [Display(Name = "Country")][HiddenInput]
+        public int Country_Id { get; set; }
+
+        [Required]
+        [Display(Name = "Business Type")]
+        [HiddenInput]
+        public int BusinessType_Id { get; set; }
+
+        [Display(Name = "Business Name")]
+        public string BusinessName { get; set; }
+
+        [Display(Name = "Phone Number")]
+        public string PhoneNumber { get; set; }
+
+        public IEnumerable<SelectListItem> CountryList { get; set; }
+        public IEnumerable<SelectListItem> BusinessTypeList { get; set; }
+
+        [Required]
         [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
         [DataType(DataType.Password)]
         [Display(Name = "Password")]
@@ -77,7 +107,7 @@ namespace WorkshopExpert.Web.Models
 
         [DataType(DataType.Password)]
         [Display(Name = "Confirm password")]
-        [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+        [System.ComponentModel.DataAnnotations.Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
     }
 
@@ -96,7 +126,7 @@ namespace WorkshopExpert.Web.Models
 
         [DataType(DataType.Password)]
         [Display(Name = "Confirm password")]
-        [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+        [System.ComponentModel.DataAnnotations.Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
 
         public string Code { get; set; }

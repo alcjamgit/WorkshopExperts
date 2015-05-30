@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Globalization;
 using System.Linq;
 using System.Security.Claims;
@@ -19,9 +20,10 @@ namespace WorkshopExpert.Web.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
-
+        private readonly ApplicationDbContext _db;
         public AccountController()
         {
+            _db = new ApplicationDbContext();
         }
 
         public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
@@ -141,7 +143,12 @@ namespace WorkshopExpert.Web.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
-            return View();
+            
+            var model = new RegisterViewModel();
+            model.BusinessTypeList = new SelectList(_db.BusinessTypes.AsQueryable(), "Id", "Name");
+            model.CountryList = new SelectList(_db.Countries.AsQueryable(), "Id", "Name");
+            //adModel.Cities = new SelectList(_citySvc.GetAll(), "Id", "Name");
+            return View(model);
         }
 
         //
@@ -153,7 +160,16 @@ namespace WorkshopExpert.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new ApplicationUser { 
+                    UserName = model.Email, 
+                    Email = model.Email,
+                    FirstName = model.FirstName,
+                    LastName = model.LastName,
+                    PhoneNumber = model.PhoneNumber,
+                    BusinessName = model.BusinessName,
+                    BusinessType_Id = model.BusinessType_Id,
+                    Country_Id = model.Country_Id,
+                };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
@@ -171,6 +187,8 @@ namespace WorkshopExpert.Web.Controllers
             }
 
             // If we got this far, something failed, redisplay form
+            model.BusinessTypeList = new SelectList(_db.BusinessTypes.AsQueryable(), "Id", "Name");
+            model.CountryList = new SelectList(_db.Countries.AsQueryable(), "Id", "Name");
             return View(model);
         }
 
@@ -419,6 +437,12 @@ namespace WorkshopExpert.Web.Controllers
                 {
                     _signInManager.Dispose();
                     _signInManager = null;
+                }
+
+                if (_db != null)
+                {
+                    _db.Dispose();
+                    
                 }
             }
 

@@ -1,4 +1,5 @@
-﻿using System.Data.Entity;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.Data.Entity;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
@@ -12,7 +13,14 @@ namespace WorkshopExpert.Core.Entities
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string BusinessName { get; set; }
-        public string Country_Id { get; set; }
+        public int BusinessType_Id { get; set; }
+        public int Country_Id { get; set; }
+
+        [ForeignKey("BusinessType_Id")]
+        public BusinessType BusinessType { get; set; }
+
+        [ForeignKey("Country_Id")]
+        public Country Country { get; set; }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
