@@ -165,7 +165,6 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -236,6 +235,16 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\WorkshopExpert.Core\WorkshopExpert.Core.csproj">
+      <Project>{e8f8d091-1cfd-4fce-9cc6-3e3e02eadf8b}</Project>
+      <Name>WorkshopExpert.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WorkshopExpert.Infrastructure\WorkshopExpert.Infrastructure.csproj">
+      <Project>{42591af4-a5e6-43c1-a44c-81243db14604}</Project>
+      <Name>WorkshopExpert.Infrastructure</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -8,6 +8,8 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
+using WorkshopExpert.Core.Entities;
+using WorkshopExpert.Infrastructure.DAL;
 using WorkshopExpert.Web.Models;
 
 namespace WorkshopExpert.Web.Controllers
