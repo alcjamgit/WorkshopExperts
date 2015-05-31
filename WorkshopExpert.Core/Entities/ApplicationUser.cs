@@ -10,8 +10,7 @@ namespace WorkshopExpert.Core.Entities
     // You can add profile data for the user by adding more properties to your ApplicationUser class, please visit http://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
     public class ApplicationUser : IdentityUser
     {
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
+        public string FullName { get; set; }
         public string BusinessName { get; set; }
         public int BusinessType_Id { get; set; }
         public int Country_Id { get; set; }

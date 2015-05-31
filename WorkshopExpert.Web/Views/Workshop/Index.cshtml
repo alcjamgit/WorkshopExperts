@@ -1,0 +1,76 @@
+﻿@*@model IEnumerable<WorkshopExpert.Web.Models.WorkshopMainIndexVm>*@
+@using WorkshopExpert.Web.Common.Telerik.Extensions
+@using Kendo.Mvc
+
+<br />
+@(Html.Kendo().Grid<WorkshopExpert.Web.Models.WorkshopGridItemVm>()
+    .Name("grid")
+    .Columns(columns =>
+    {
+        //columns.Bound(w => w.Id);
+        columns.Bound(w => w.Title);
+
+        columns.ForeignKey(w => w.Category_Id, (System.Web.Mvc.SelectList)ViewBag.Categories).Title("Category");
+        columns.ForeignKey(w => w.WorkshopType_Id, (System.Web.Mvc.SelectList)ViewBag.WorkshopTypes).Title("Type");
+
+        columns.Bound(w => w.CreatedDate).Format("{0:MM/dd/yyyy}");
+
+        
+        columns.ActionLink("Edit", "Edit", "Workshop" , w => new { id = w.Id }).Width("150px");
+        columns.Command(command => { command.Destroy(); }).Width("150px");
+
+    })
+    .ToolBar(toolbar => toolbar.Create())
+    .Editable(editable => editable.Mode(GridEditMode.PopUp).TemplateName("WorkshopEditor"))
+    .Pageable()
+    .Sortable()
+    .Selectable()
+    .Filterable()
+    .Scrollable()
+    .HtmlAttributes(new { style = "height:430px;" })
+    .DataSource(dataSource => dataSource
+        .Ajax()
+        .PageSize(20)
+        .Events(events => events.Error("error_handler"))
+        .Model(model =>
+        {
+            model.Id(w => w.Id);
+            model.Field(w => w.CreatedDate).Editable(false);
+            model.Field(w => w.Id).Editable(false).DefaultValue(Guid.Empty);
+
+        })
+
+        .Create(update => update.Action("EditingPopup_Create", "Workshop"))
+                .Read(read => read.Action("EditingPopup_Read", "Workshop"))
+            .Update(update => update.Action("EditingPopup_Update", "Workshop"))
+            .Destroy(update => update.Action("EditingPopup_Destroy", "Workshop"))
+    )
+)
+
+<script type="text/javascript">
+    function error_handler(e) {
+        if (e.errors) {
+            var message = "Errors:\n";
+            $.each(e.errors, function (key, value) {
+                if ('errors' in value) {
+                    $.each(value.errors, function () {
+                        message += this + "\n";
+                    });
+                }
+            });
+            alert(message);
+        }
+    }
+</script>
+
+@section Styles{
+    <style>
+        .k-widget.k-window, .k-edit-buttons {
+            width: 500px;
+        }
+        .k-textbox, k-dropdown, k-widget.k-dropdown.k-header {
+            width:240px;
+        }
+    </style>
+
+    }

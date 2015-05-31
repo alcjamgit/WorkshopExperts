@@ -163,8 +163,7 @@ namespace WorkshopExpert.Web.Controllers
                 var user = new ApplicationUser { 
                     UserName = model.Email, 
                     Email = model.Email,
-                    FirstName = model.FirstName,
-                    LastName = model.LastName,
+                    FullName = model.FullName,
                     PhoneNumber = model.PhoneNumber,
                     BusinessName = model.BusinessName,
                     BusinessType_Id = model.BusinessType_Id,

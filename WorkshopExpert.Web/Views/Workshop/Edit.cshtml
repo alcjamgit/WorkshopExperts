@@ -1,0 +1,91 @@
+﻿@model WorkshopExpert.Core.Entities.Workshop
+@using Kendo.Mvc
+@{
+    ViewBag.Title = "GetDetails";
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.Id)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Category_Id, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Category_Id, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Category_Id, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Type_Id, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Type_Id, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Type_Id, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+
+
+@(Html.Kendo().TabStrip()
+          .Name("tabstrip")
+          .Items(tabstrip =>
+          {
+              tabstrip.Add().Text("Analysis and Design")
+                  .Selected(true)
+                  .Content(@<text>
+                    <div class="weather">
+                        <h2>17<span>&ordm;C</span></h2>
+                        <p>Rainy weather in Paris.</p>
+                    </div>
+                    <span class="rainy">&nbsp;</span>
+                </text>);
+
+              tabstrip.Add().Text("Design and Develop")
+                  .LoadContentFrom("IndexByWorkshopId", "Development", new { id = Model.Id});
+    
+              tabstrip.Add().Text("Biography")
+                  .Content(@<text>
+                    <div class="weather">
+                        <h2>16<span>&ordm;C</span></h2>
+                        <p>Cloudy weather in Moscow.</p>
+                    </div>
+                    <span class="cloudy">&nbsp;</span>
+                </text>);
+
+              tabstrip.Add().Text("Summary Checklist")
+                  .Content(@<text>
+                    <div class="weather">
+                        <h2>17<span>&ordm;C</span></h2>
+                        <p>Rainy weather in Sidney.</p>
+                    </div>
+                    <span class="rainy">&nbsp;</span>
+                </text>);
+          })
+)

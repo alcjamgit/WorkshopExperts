@@ -1,0 +1,50 @@
+﻿@model WorkshopExpert.Web.Models.DevelopmentGridVm
+
+<br />
+@Html.HiddenFor(model => model.Id)
+
+
+<div class="nameEditor">
+    <div class="editor-label">
+        @Html.LabelFor(model => model.TimeSlot_Id)
+    </div>
+    <div class="editor-field">
+        @Html.EditorFor(model => model.TimeSlot_Id)
+        @Html.ValidationMessageFor(model => model.TimeSlot_Id)
+    </div>
+</div>
+
+
+<div class="nameEditor">
+    <div class="editor-label">
+        @Html.LabelFor(model => model.Order)
+    </div>
+    <div class="editor-field">
+        @Html.EditorFor(model => model.Order)
+        @Html.ValidationMessageFor(model => model.Order)
+    </div>
+</div>
+
+<div class="nameEditor">
+    <div class="editor-label">
+        @Html.LabelFor(model => model.TopicTitle)
+    </div>
+    <div class="editor-field">
+        @Html.EditorFor(model => model.TopicTitle)
+        @Html.ValidationMessageFor(model => model.TopicTitle)
+    </div>
+</div>
+
+<div class="nameEditor">
+    <div class="editor-label">
+        @Html.LabelFor(model => model.Duration)
+    </div>
+    <div class="editor-field">
+        @(Html.Kendo().TimePickerFor(m => m.Duration)
+          .Min("00:30")
+          .Max("23:30")
+          .Interval(30)
+          .Format("{0:HH:mm}"))
+        @Html.ValidationMessageFor(model => model.TopicTitle)
+    </div>
+</div>

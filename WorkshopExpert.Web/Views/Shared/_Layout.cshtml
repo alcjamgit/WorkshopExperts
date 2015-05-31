@@ -7,6 +7,17 @@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 
+	<!--This bundle was moved by the Telerik VS Extensions for compatibility reasons-->
+	@Scripts.Render("~/bundles/jquery")
+	<link href="@Url.Content("~/Content/kendo/2015.1.429/kendo.common-material.min.css")" rel="stylesheet" type="text/css" />
+	<link href="@Url.Content("~/Content/kendo/2015.1.429/kendo.mobile.all.min.css")" rel="stylesheet" type="text/css" />
+	<link href="@Url.Content("~/Content/kendo/2015.1.429/kendo.dataviz.min.css")" rel="stylesheet" type="text/css" />
+	<link href="@Url.Content("~/Content/kendo/2015.1.429/kendo.material.min.css")" rel="stylesheet" type="text/css" />
+	<link href="@Url.Content("~/Content/kendo/2015.1.429/kendo.dataviz.material.min.css")" rel="stylesheet" type="text/css" />
+
+    @RenderSection("styles", required: false)
+
+
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -37,7 +48,12 @@
         </footer>
     </div>
 
-    @Scripts.Render("~/bundles/jquery")
+    <script src="@Url.Content("~/Scripts/kendo/2015.1.429/jquery.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/kendo/2015.1.429/jszip.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/kendo/2015.1.429/kendo.all.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/kendo/2015.1.429/kendo.aspnetmvc.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/kendo.modernizr.custom.js")"></script>
+
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
 </body>
