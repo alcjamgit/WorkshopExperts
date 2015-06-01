@@ -164,7 +164,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Common\TelerikGridExtensions.cs" />
     <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\DesignController.cs" />
+    <Compile Include="Controllers\AnalysisController.cs" />
     <Compile Include="Controllers\DevelopmentController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -173,6 +173,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\AnalysisViewModels.cs" />
     <Compile Include="Models\DevelopmentViewModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\WorkshopViewModels.cs" />
@@ -822,6 +823,7 @@
     <Content Include="Views\Workshop\Edit.cshtml" />
     <Content Include="Views\Development\IndexByWorkshopId.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\WorkshopDevelopmentEditor.cshtml" />
+    <Content Include="Views\Analysis\GetByAnalysisByWorkshopId.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

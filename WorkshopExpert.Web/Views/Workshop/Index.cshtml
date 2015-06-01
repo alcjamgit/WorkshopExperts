@@ -10,7 +10,7 @@
         //columns.Bound(w => w.Id);
         columns.Bound(w => w.Title);
 
-        columns.ForeignKey(w => w.Category_Id, (System.Web.Mvc.SelectList)ViewBag.Categories).Title("Category");
+        columns.ForeignKey(w => w.Category_Id, (System.Web.Mvc.SelectList)ViewBag.Categories).Title("Category").Width("250px");
         columns.ForeignKey(w => w.WorkshopType_Id, (System.Web.Mvc.SelectList)ViewBag.WorkshopTypes).Title("Type");
 
         columns.Bound(w => w.CreatedDate).Format("{0:MM/dd/yyyy}");

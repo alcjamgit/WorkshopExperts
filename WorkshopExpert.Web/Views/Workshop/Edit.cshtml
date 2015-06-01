@@ -58,18 +58,14 @@
           .Items(tabstrip =>
           {
               tabstrip.Add().Text("Analysis and Design")
-                  .Selected(true)
-                  .Content(@<text>
-                    <div class="weather">
-                        <h2>17<span>&ordm;C</span></h2>
-                        <p>Rainy weather in Paris.</p>
-                    </div>
-                    <span class="rainy">&nbsp;</span>
-                </text>);
-
+                  .LoadContentFrom("GetByAnalysisByWorkshopId", "Analysis", new { id = Model.Id })
+                  .Selected(true);
+              
               tabstrip.Add().Text("Design and Develop")
                   .LoadContentFrom("IndexByWorkshopId", "Development", new { id = Model.Id});
-    
+
+
+                  
               tabstrip.Add().Text("Biography")
                   .Content(@<text>
                     <div class="weather">

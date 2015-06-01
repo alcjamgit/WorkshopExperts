@@ -5,7 +5,7 @@
 <br />
 
 <div class="row">
-    <div class="col-md-8 col-md-offset-2">
+    <div class="col-md-6 col-md-offset-3">
         <div class="panel panel-default">
             <div class="panel-heading">Register</div>
             <div class="panel-body">
@@ -16,54 +16,54 @@
                     @Html.ValidationSummary("", new { @class = "text-danger" })
                     <div class="form-group">
                         @Html.LabelFor(m => m.Email, new { @class = "col-md-3 control-label" })
-                        <div class="col-md-6">
+                        <div class="col-md-7">
                             @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
                         </div>
                     </div>
 
                     <div class="form-group">
                         @Html.LabelFor(m => m.FullName, new { @class = "col-md-3 control-label" })
-                        <div class="col-md-6">
+                        <div class="col-md-7">
                             @Html.TextBoxFor(m => m.FullName, new { @class = "form-control" })
                         </div>
                     </div>
 
                     <div class="form-group">
                         @Html.LabelFor(m => m.BusinessName, new { @class = "col-md-3 control-label" })
-                        <div class="col-md-6">
+                        <div class="col-md-7">
                             @Html.TextBoxFor(m => m.BusinessName, new { @class = "form-control" })
                         </div>
                     </div>
 
                     <div class="form-group">
                         @Html.LabelFor(m => m.PhoneNumber, new { @class = "col-md-3 control-label" })
-                        <div class="col-md-6">
+                        <div class="col-md-7">
                             @Html.TextBoxFor(m => m.PhoneNumber, new { @class = "form-control" })
                         </div>
                     </div>
 
                     <div class="form-group">
                         @Html.LabelFor(m => m.Password, new { @class = "col-md-3 control-label" })
-                        <div class="col-md-6">
+                        <div class="col-md-7">
                             @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
                         </div>
                     </div>
                     <div class="form-group">
                         @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-3 control-label" })
-                        <div class="col-md-6">
+                        <div class="col-md-7">
                             @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
                         </div>
                     </div>
                     <div class="form-group">
                         @Html.LabelFor(model => model.Country_Id, htmlAttributes: new { @class = "control-label col-md-3" })
-                        <div class="col-md-6">
+                        <div class="col-md-7">
                             @Html.DropDownListFor(model => model.Country_Id, Model.CountryList, "--Select Country--", new { @class = "form-control" })
                             @Html.ValidationMessageFor(model => model.Country_Id, "", new { @class = "text-danger" })
                         </div>
                     </div>
                     <div class="form-group">
                         @Html.LabelFor(model => model.BusinessType_Id, htmlAttributes: new { @class = "control-label col-md-3" })
-                        <div class="col-md-6">
+                        <div class="col-md-7">
                             @Html.DropDownListFor(model => model.BusinessType_Id, Model.BusinessTypeList, "--Select Your Business Type--", new { @class = "form-control" })
                             @Html.ValidationMessageFor(model => model.BusinessType_Id, "", new { @class = "text-danger" })
                         </div>
@@ -71,8 +71,11 @@
 
 
                     <div class="form-group">
-                        <div class="col-md-offset-3 col-md-6">
-                            <input type="submit" class="btn btn-default" value="Register" />
+                        <div class="col-md-offset-3 col-md-7">
+                            @(Html.Kendo().Button()
+                                        .Name("loginBtn")
+                                        .HtmlAttributes(new { type = "submit", @class = "k-primary" })
+                                        .Content("Login"))
                         </div>
                     </div>
                 }
