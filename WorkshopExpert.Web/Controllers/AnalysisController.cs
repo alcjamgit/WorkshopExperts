@@ -28,7 +28,7 @@ namespace WorkshopExpert.Web.Controllers
             var modelId = new Guid(id);
             var model = (from a in _db.Analyses
                         where a.Workshop_Id == modelId
-                        select new AnalysisEditViewModel { 
+                        select new AnalysisEditViewModel {
                             Id = a.Id,
                             Workshop_Id = a.Workshop_Id,
                             DurationHours = a.DurationHours,
@@ -37,7 +37,8 @@ namespace WorkshopExpert.Web.Controllers
                             ProblemToOvercome = a.ProblemToOvercome,
                             NeedToFulfill = a.NeedToFulfill
                         }).FirstOrDefault();
-            return View(model);
+
+            return PartialView(model);
         }
 
     }

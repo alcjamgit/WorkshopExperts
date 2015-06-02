@@ -17,6 +17,7 @@ namespace WorkshopExpert.Core.Entities
         public string AttendeeProfile { get; set; }
         public string ProblemToOvercome { get; set; }
         public string NeedToFulfill { get; set; }
+
         [ForeignKey("Workshop_Id")]
         public virtual Workshop Workshop { get; set; }
     }

@@ -824,11 +824,10 @@
     <Content Include="Views\Development\IndexByWorkshopId.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\WorkshopDevelopmentEditor.cshtml" />
     <Content Include="Views\Analysis\GetByAnalysisByWorkshopId.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\TextArea.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Design\" />
-    <Folder Include="Views\Develop\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
