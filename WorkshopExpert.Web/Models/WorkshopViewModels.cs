@@ -29,6 +29,15 @@ namespace WorkshopExpert.Web.Models
         public int WorkshopType_Id { get; set; }
     }
 
+    public class WorkshopEditVM
+    {
+        public Guid Id { get; set; }
+        public string Title { get; set; }
+        [DisplayName("Type")]
+        public int WorkshopType_Id { get; set; }
+        public IEnumerable<SelectListItem> WorkshopType { get; set; }
+    }
+
     public class WorkshopGridItemVm
     {
         public Guid Id { get; set; }

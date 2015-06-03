@@ -1,10 +1,6 @@
 ﻿@model WorkshopExpert.Web.Models.AnalysisEditViewModel
 
-@{
-    ViewBag.Title = "GetByAnalysisByWorkshopId";
-}
-<div class="row">
-    <div class="col-md-8">
+
         @using (Html.BeginForm())
         {
             @Html.AntiForgeryToken()
@@ -27,19 +23,19 @@
 
             <div class="form-group">
                 @Html.LabelFor(model => model.AttendeeProfile, htmlAttributes: new { @class = "control-label" })
-                @Html.TextAreaFor(model => model.AttendeeProfile, new { @class = "form-control", @rows = "5" } )
+                @Html.TextAreaFor(model => model.AttendeeProfile, new { @class = "form-control", @rows = "3" } )
                 @Html.ValidationMessageFor(model => model.AttendeeProfile, "", new { @class = "text-danger" })
             </div>
 
             <div class="form-group">
                 @Html.LabelFor(model => model.ProblemToOvercome, htmlAttributes: new { @class = "control-label" })
-                @Html.TextAreaFor(model => model.ProblemToOvercome, new { @class = "form-control", @rows = "5" })
+                @Html.TextAreaFor(model => model.ProblemToOvercome, new { @class = "form-control", @rows = "3" })
                 @Html.ValidationMessageFor(model => model.ProblemToOvercome, "", new { @class = "text-danger" })
             </div>
 
             <div class="form-group">
                 @Html.LabelFor(model => model.NeedToFulfill, htmlAttributes: new { @class = "control-label" })
-                @Html.TextAreaFor(model => model.NeedToFulfill, new { @class = "form-control", @rows = "5" })
+                @Html.TextAreaFor(model => model.NeedToFulfill, new { @class = "form-control", @rows = "3" })
                 @Html.ValidationMessageFor(model => model.NeedToFulfill, "", new { @class = "text-danger" })
             </div>
 
@@ -49,6 +45,3 @@
 
         }
 
-    </div>
-
-</div>
