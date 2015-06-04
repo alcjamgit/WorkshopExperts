@@ -1,8 +1,5 @@
 ﻿
 @using Kendo.Mvc
-@{
-    ViewBag.Title = "IndexByWorkshopId";
-}
 
 <br />
 @(Html.Kendo().Grid<WorkshopExpert.Web.Models.DevelopmentGridVm>()
@@ -40,7 +37,7 @@
     )
 )
 
-<script type="text/javascript">
+@*<script type="text/javascript">
     function error_handler(e) {
         if (e.errors) {
             var message = "Errors:\n";
@@ -54,7 +51,7 @@
             alert(message);
         }
     }
-</script>
+</script>*@
 
 @section Styles{
     <style>

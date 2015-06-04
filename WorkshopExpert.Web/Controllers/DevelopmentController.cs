@@ -22,12 +22,13 @@ namespace WorkshopExpert.Web.Controllers
             _db = new ApplicationDbContext(new CurrentUserService(System.Web.HttpContext.Current.User.Identity));
         }
 
+        
         public ActionResult IndexByWorkshopId(string id)
         {
             ViewBag.WorkshopId = id;
             ViewBag.TimeSlots = new SelectList(_db.TimeSlots.AsEnumerable(), "Id", "Name");
             ViewBag.DeliveryMethods = new SelectList(_db.DeliveryMethods.AsEnumerable(), "Id", "Name");
-            return View();
+            return PartialView();
         }
         
         public ActionResult Index_Read([DataSourceRequest] DataSourceRequest request, string id)

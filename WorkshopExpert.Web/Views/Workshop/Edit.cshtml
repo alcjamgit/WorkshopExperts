@@ -2,65 +2,71 @@
 @using Kendo.Mvc
 @{ ViewBag.Title = "GetDetails";}
 <br />
+<div class="row">
+    <div class="col-md-8 col-md-offset-2">
 
-<div class="panel panel-default">
-    <div class="panel-heading">Edit Workshop</div>
-    <div class="panel-body">
-        @using (Html.BeginForm())
-        {
-            @Html.AntiForgeryToken()
-            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-            @Html.HiddenFor(model => model.Id)
+        <div class="panel panel-default">
+            <div class="panel-heading">Edit Workshop</div>
+            <div class="panel-body">
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    @Html.HiddenFor(model => model.Id)
 
-            <div class="form-group">
+                    <div class="form-group">
 
-                    @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label" })
-                    @Html.TextBoxFor(model => model.Title, new { @class = "form-control" })
-                    @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+                        @Html.LabelFor(model => model.Title)
+                        @Html.TextBoxFor(model => model.Title, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
 
+                    </div>
+
+                    <div class="form-group">
+
+                        @Html.LabelFor(model => model.WorkshopType_Id)
+                        @Html.DropDownListFor(model => model.WorkshopType_Id, Model.WorkshopType, "--Select Type--", new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.WorkshopType_Id, "", new { @class = "text-danger" })
+
+                    </div>
+                }
             </div>
 
-            <div class="form-group">
+        </div>
 
-                    @Html.LabelFor(model => model.WorkshopType_Id, htmlAttributes: new { @class = "control-label" })
-                    @Html.DropDownListFor(model => model.WorkshopType_Id, Model.WorkshopType, "--Select Type--", new { @class = "form-control" })
-                    @Html.ValidationMessageFor(model => model.WorkshopType_Id, "", new { @class = "text-danger" })
+        <div>
+            @(Html.Kendo().TabStrip()
+              .Name("tabstrip")
+              .Items(tabstrip =>
+              {
+                  tabstrip.Add().Text("Analysis and Design")
+                      .LoadContentFrom("GetByAnalysisByWorkshopId", "Analysis", new { id = Model.Id })
+                      .Selected(true);
 
-            </div>
-        }
+                  tabstrip.Add().Text("Design and Develop")
+                      .LoadContentFrom("IndexByWorkshopId", "Development", new { id = Model.Id });
+
+
+
+                  tabstrip.Add().Text("Biography")
+                      .Content(@<text>Content not yet available</text>);
+
+                  tabstrip.Add().Text("Summary Checklist")
+                      .Content(@<text>
+                        Content not yet available
+                    </text>);
+              })
+            )
+        </div>
     </div>
-
 </div>
-
-
-@(Html.Kendo().TabStrip()
-          .Name("tabstrip")
-          .Items(tabstrip =>
-          {
-              tabstrip.Add().Text("Analysis and Design")
-                  .LoadContentFrom("GetByAnalysisByWorkshopId", "Analysis", new { id = Model.Id })
-                  .Selected(true);
-              
-              tabstrip.Add().Text("Design and Develop")
-                  .LoadContentFrom("IndexByWorkshopId", "Development", new { id = Model.Id});
-
-
-                  
-              tabstrip.Add().Text("Biography")
-                  .Content(@<text>Content not yet available</text>);
-
-              tabstrip.Add().Text("Summary Checklist")
-                  .Content(@<text>
-                    Content not yet available
-                </text>);
-          })
-)
 
 @section styles{
     <style>
         .k-content input.form-control{
             height:20px;
         }
+
     </style>
     
     }

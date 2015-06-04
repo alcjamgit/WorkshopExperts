@@ -73,7 +73,6 @@ namespace WorkshopExpert.Web.Controllers
         public ActionResult Edit(string id)
         {
             ViewBag.Categories = new SelectList(_db.Categories.AsEnumerable(), "Id", "Name");
-            ViewBag.WorkshopTypes = new SelectList(_db.WorkshopTypes.AsEnumerable(), "Id", "Name");
             var modelId = new Guid(id);
             var model = (from w in _db.Workshops
                         where w.Id == modelId
