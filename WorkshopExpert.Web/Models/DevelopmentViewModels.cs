@@ -24,7 +24,8 @@ namespace WorkshopExpert.Web.Models
         public int DeliveyMethod_Id { get; set; }
 
         [DisplayName("Duration (hh:mm)")]
-        public TimeSpan? Duration { get; set; }
+        //public TimeSpan? Duration { get; set; }
+        public DateTime? Duration { get; set; }
         public Guid Workshop_Id { get; set; }
 
     }

@@ -40,11 +40,11 @@
         @Html.LabelFor(model => model.Duration)
     </div>
     <div class="editor-field">
-        @(Html.Kendo().TimePickerFor(m => m.Duration)
+        @(Html.Kendo().TimePickerFor(m=>m.Duration)
           .Min("00:30")
           .Max("23:30")
           .Interval(30)
           .Format("{0:HH:mm}"))
-        @Html.ValidationMessageFor(model => model.TopicTitle)
+        @Html.ValidationMessageFor(model => model.Duration)
     </div>
 </div>

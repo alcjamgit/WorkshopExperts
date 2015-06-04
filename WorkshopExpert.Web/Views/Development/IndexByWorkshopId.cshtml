@@ -27,7 +27,8 @@
         .Model(model =>
         {
             model.Id(d => d.Id);
-            model.Field(d => d.Id).Editable(false).DefaultValue(Guid.Empty);
+            model.Field(d => d.Id).Editable(false).DefaultValue(Guid.NewGuid());
+            model.Field(d => d.Workshop_Id).Editable(false).DefaultValue(new Guid(ViewBag.WorkshopId));
         
         })
         .Create(update => update.Action("EditingPopup_Create", "Development"))
@@ -37,7 +38,7 @@
     )
 )
 
-@*<script type="text/javascript">
+<script type="text/javascript">
     function error_handler(e) {
         if (e.errors) {
             var message = "Errors:\n";
@@ -51,12 +52,15 @@
             alert(message);
         }
     }
-</script>*@
+</script>
 
 @section Styles{
     <style>
-        .k-widget.k-window, .k-edit-buttons {
+        .k-widget.k-window {
             width: 500px;
+        }
+        .k-edit-buttons {
+            width: 450px;
         }
 
         .k-textbox, k-dropdown, k-widget.k-dropdown.k-header {

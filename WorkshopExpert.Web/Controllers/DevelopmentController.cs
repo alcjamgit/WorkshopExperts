@@ -28,7 +28,7 @@ namespace WorkshopExpert.Web.Controllers
             ViewBag.WorkshopId = id;
             ViewBag.TimeSlots = new SelectList(_db.TimeSlots.AsEnumerable(), "Id", "Name");
             ViewBag.DeliveryMethods = new SelectList(_db.DeliveryMethods.AsEnumerable(), "Id", "Name");
-            return PartialView();
+            return View();
         }
         
         public ActionResult Index_Read([DataSourceRequest] DataSourceRequest request, string id)
@@ -45,29 +45,32 @@ namespace WorkshopExpert.Web.Controllers
                             Order = d.Order,
                             Workshop_Id = d.Workshop_Id,
                             DeliveyMethod_Id = d.DeliveyMethod_Id,
-                            Duration = DbFunctions.CreateTime(0, 1 ,0f)
+                            Duration = DateTime.MinValue,
                         };
-            return Json(model.ToDataSourceResult(request));
+            return Json(model.ToDataSourceResult(request), JsonRequestBehavior.AllowGet);
         }
 
         [AcceptVerbs(HttpVerbs.Post)]
         public ActionResult EditingPopup_Create([DataSourceRequest] DataSourceRequest request, DevelopmentGridVm developmentGrid)
         {
+            var modelId = Guid.NewGuid();
             if (developmentGrid != null && ModelState.IsValid)
             {
+                
                 var workshopModel = new Development
                 {
-                    Id = Guid.NewGuid(),
+                    Id = modelId,
                     TopicTitle = developmentGrid.TopicTitle,
                     DeliveyMethod_Id = developmentGrid.DeliveyMethod_Id,
                     TimeSlot_Id = developmentGrid.TimeSlot_Id,
                     Workshop_Id = developmentGrid.Workshop_Id,
                     Order = developmentGrid.Order,
+                    //Convert duration to a DateTime Field
                 };
                 _db.Development.Add(workshopModel);
                 _db.SaveChanges();
             }
-
+            developmentGrid.Id = modelId;
             return Json(new[] { developmentGrid }.ToDataSourceResult(request, ModelState));
         }
 
