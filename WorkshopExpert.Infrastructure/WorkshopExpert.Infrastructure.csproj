@@ -56,25 +56,9 @@
     <Compile Include="BLL\DomainServices\SummaryChecklistService.cs" />
     <Compile Include="Class1.cs" />
     <Compile Include="DAL\ApplicationDbContext.cs" />
-    <Compile Include="Migrations\201505300200190_Init.cs" />
-    <Compile Include="Migrations\201505300200190_Init.Designer.cs">
-      <DependentUpon>201505300200190_Init.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201505302322196_update001.cs" />
-    <Compile Include="Migrations\201505302322196_update001.Designer.cs">
-      <DependentUpon>201505302322196_update001.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201505310807063_update002.cs" />
-    <Compile Include="Migrations\201505310807063_update002.Designer.cs">
-      <DependentUpon>201505310807063_update002.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201505311211369_update003.cs" />
-    <Compile Include="Migrations\201505311211369_update003.Designer.cs">
-      <DependentUpon>201505311211369_update003.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201506011316570_update004.cs" />
-    <Compile Include="Migrations\201506011316570_update004.Designer.cs">
-      <DependentUpon>201506011316570_update004.cs</DependentUpon>
+    <Compile Include="Migrations\201506041332252_Init.cs" />
+    <Compile Include="Migrations\201506041332252_Init.Designer.cs">
+      <DependentUpon>201506041332252_Init.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -90,20 +74,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201505300200190_Init.resx">
-      <DependentUpon>201505300200190_Init.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201505302322196_update001.resx">
-      <DependentUpon>201505302322196_update001.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201505310807063_update002.resx">
-      <DependentUpon>201505310807063_update002.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201505311211369_update003.resx">
-      <DependentUpon>201505311211369_update003.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201506011316570_update004.resx">
-      <DependentUpon>201506011316570_update004.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201506041332252_Init.resx">
+      <DependentUpon>201506041332252_Init.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

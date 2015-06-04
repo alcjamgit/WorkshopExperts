@@ -37,6 +37,16 @@
 
 <div class="nameEditor">
     <div class="editor-label">
+        @Html.LabelFor(model => model.DeliveyMethod_Id)
+    </div>
+    <div class="editor-field">
+        @Html.EditorFor(model => model.DeliveyMethod_Id)
+        @Html.ValidationMessageFor(model => model.DeliveyMethod_Id)
+    </div>
+</div>
+
+<div class="nameEditor">
+    <div class="editor-label">
         @Html.LabelFor(model => model.Duration)
     </div>
     <div class="editor-field">

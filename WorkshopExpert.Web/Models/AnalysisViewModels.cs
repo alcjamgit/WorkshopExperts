@@ -11,9 +11,10 @@ namespace WorkshopExpert.Web.Models
 {
     public class AnalysisEditViewModel
     {
-        [HiddenInput]
+
+        [HiddenInput(DisplayValue = false)]
         public Guid Id { get; set; }
-        [HiddenInput]
+        [HiddenInput(DisplayValue = false)]
         public Guid Workshop_Id { get; set; }
 
         [DisplayName("Proposed Workshop Title")]

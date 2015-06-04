@@ -7,13 +7,13 @@ namespace WorkshopExpert.Infrastructure.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.1-30610")]
-    public sealed partial class update004 : IMigrationMetadata
+    public sealed partial class Init : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(update004));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(Init));
         
         string IMigrationMetadata.Id
         {
-            get { return "201506011316570_update004"; }
+            get { return "201506041332252_Init"; }
         }
         
         string IMigrationMetadata.Source

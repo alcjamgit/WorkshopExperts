@@ -10,6 +10,8 @@ using WorkshopExpert.Infrastructure.DAL;
 using WorkshopExpert.Web.Models;
 using WorkshopExpert.Infrastructure.BLL.ApplicationServices;
 using System.Data.Entity;
+using System.Data.Entity.Core;
+using System.Data.Entity.Core.Objects;
 
 namespace WorkshopExpert.Web.Controllers
 {
@@ -39,6 +41,58 @@ namespace WorkshopExpert.Web.Controllers
                         }).FirstOrDefault();
 
             return PartialView(model);
+        }
+
+        [AcceptVerbs(HttpVerbs.Post)]
+        public ActionResult Update(AnalysisEditViewModel analysisEditVm)
+        {
+
+            if (analysisEditVm != null && ModelState.IsValid)
+            {
+
+                var analysisModel = new Analysis
+                {
+                    Id = analysisEditVm.Id,
+                    ProposedWorkshopTitle = analysisEditVm.ProposedWorkshopTitle,
+                    NeedToFulfill = analysisEditVm.NeedToFulfill,
+                    ProblemToOvercome = analysisEditVm.ProblemToOvercome,
+                    Workshop_Id = analysisEditVm.Workshop_Id,
+                    DurationHours = analysisEditVm.DurationHours,
+                    AttendeeProfile = analysisEditVm.AttendeeProfile
+                };
+
+                //_db.Analyses.Attach(analysisModel);
+                _db.Entry(analysisModel).State = EntityState.Modified;
+                _db.SaveChanges();
+                
+            }
+            return RedirectToAction("Edit", "Workshop", new { id = analysisEditVm.Workshop_Id });
+            
+        }
+
+        [AcceptVerbs(HttpVerbs.Post)]
+        public ActionResult UpdateViaAjax([DataSourceRequest] DataSourceRequest request, AnalysisEditViewModel analysisEditVm)
+        {
+
+            if (analysisEditVm != null && ModelState.IsValid)
+            {
+
+                var analysisModel = new Analysis
+                {
+                    Id = analysisEditVm.Id,
+                    ProposedWorkshopTitle = analysisEditVm.ProposedWorkshopTitle,
+                    NeedToFulfill = analysisEditVm.NeedToFulfill,
+                    ProblemToOvercome = analysisEditVm.ProblemToOvercome,
+                    Workshop_Id = analysisEditVm.Workshop_Id,
+                    DurationHours = analysisEditVm.DurationHours,
+                    AttendeeProfile = analysisEditVm.AttendeeProfile
+                };
+
+                _db.Entry(analysisModel).State = EntityState.Modified;
+                _db.SaveChanges();
+                
+            }
+            return Json(new[] { analysisEditVm }.ToDataSourceResult(request, ModelState));
         }
 
     }

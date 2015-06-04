@@ -43,8 +43,8 @@ namespace WorkshopExpert.Infrastructure.DAL
         {
             //Used by AppHarbor to automatically update the database
             //Database.SetInitializer(new MigrateDatabaseToLatestVersion<ApplicationDbContext, Configuration>());
-            modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
-            modelBuilder.Conventions.Remove<ManyToManyCascadeDeleteConvention>();
+            //modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
+            //modelBuilder.Conventions.Remove<ManyToManyCascadeDeleteConvention>();
             base.OnModelCreating(modelBuilder);
 
         }

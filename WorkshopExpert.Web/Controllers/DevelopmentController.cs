@@ -22,13 +22,13 @@ namespace WorkshopExpert.Web.Controllers
             _db = new ApplicationDbContext(new CurrentUserService(System.Web.HttpContext.Current.User.Identity));
         }
 
-        
-        public ActionResult IndexByWorkshopId(string id)
+
+        public PartialViewResult IndexByWorkshopId(string id)
         {
             ViewBag.WorkshopId = id;
             ViewBag.TimeSlots = new SelectList(_db.TimeSlots.AsEnumerable(), "Id", "Name");
             ViewBag.DeliveryMethods = new SelectList(_db.DeliveryMethods.AsEnumerable(), "Id", "Name");
-            return View();
+            return PartialView();
         }
         
         public ActionResult Index_Read([DataSourceRequest] DataSourceRequest request, string id)
@@ -74,6 +74,43 @@ namespace WorkshopExpert.Web.Controllers
             return Json(new[] { developmentGrid }.ToDataSourceResult(request, ModelState));
         }
 
+        [AcceptVerbs(HttpVerbs.Post)]
+        public ActionResult EditingPopup_Update([DataSourceRequest] DataSourceRequest request, DevelopmentGridVm developmentGrid)
+        {
+
+            if (developmentGrid != null && ModelState.IsValid)
+            {
+
+                var workshopModel = new Development
+                {
+                    Id = developmentGrid.Id,
+                    TopicTitle = developmentGrid.TopicTitle,
+                    DeliveyMethod_Id = developmentGrid.DeliveyMethod_Id,
+                    TimeSlot_Id = developmentGrid.TimeSlot_Id,
+                    Workshop_Id = developmentGrid.Workshop_Id,
+                    Order = developmentGrid.Order,
+                    //Convert duration to a DateTime Field
+                };
+                _db.Entry(workshopModel).State = EntityState.Modified;
+                _db.SaveChanges();
+            }
+            return Json(new[] { developmentGrid }.ToDataSourceResult(request, ModelState));
+        }
+
+        [AcceptVerbs(HttpVerbs.Post)]
+        public ActionResult EditingPopup_Destroy([DataSourceRequest] DataSourceRequest request, DevelopmentGridVm developmentGrid)
+        {
+            
+            if (developmentGrid != null && ModelState.IsValid)
+            {
+                var devToDelete = new Development { Id = developmentGrid.Id };
+                
+                //var devToDelete = _db.Development.Find(developmentGrid.Id);
+                _db.Entry(devToDelete).State = EntityState.Deleted;
+                _db.SaveChanges();
+            }
+            return Json(new[] { developmentGrid }.ToDataSourceResult(request, ModelState));
+        }
 
     }
 }

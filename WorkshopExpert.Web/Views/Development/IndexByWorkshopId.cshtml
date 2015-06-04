@@ -10,7 +10,8 @@
         columns.Bound(d => d.Order);
         columns.Bound(d => d.TopicTitle);
         columns.ForeignKey(d => d.DeliveyMethod_Id, (System.Web.Mvc.SelectList)ViewBag.DeliveryMethods).Title("Delivery");
-        columns.Bound(d => d.Duration);
+        columns.Bound(d => d.Duration).Format("{0:hh:mm}").Filterable(false);
+        columns.Command(command => { command.Edit(); command.Destroy(); }).Width(200);
     })
     .ToolBar(toolbar => toolbar.Create())
     .Editable(editable => editable.Mode(GridEditMode.PopUp).TemplateName("WorkshopDevelopmentEditor"))
@@ -27,32 +28,20 @@
         .Model(model =>
         {
             model.Id(d => d.Id);
-            model.Field(d => d.Id).Editable(false).DefaultValue(Guid.NewGuid());
+            model.Field(d => d.Id).Editable(false).DefaultValue(Guid.Empty);
             model.Field(d => d.Workshop_Id).Editable(false).DefaultValue(new Guid(ViewBag.WorkshopId));
         
         })
         .Create(update => update.Action("EditingPopup_Create", "Development"))
         .Read(read => read.Action("Index_Read", "Development", new { id = (string)ViewBag.WorkshopId }))
-        .Update(update => update.Action("EditingPopup_Update", "Workshop"))
-        .Destroy(update => update.Action("EditingPopup_Destroy", "Workshop"))
+            .Update(update => update.Action("EditingPopup_Update", "Development"))
+            .Destroy(update => update.Action("EditingPopup_Destroy", "Development"))
     )
 )
 
-<script type="text/javascript">
-    function error_handler(e) {
-        if (e.errors) {
-            var message = "Errors:\n";
-            $.each(e.errors, function (key, value) {
-                if ('errors' in value) {
-                    $.each(value.errors, function () {
-                        message += this + "\n";
-                    });
-                }
-            });
-            alert(message);
-        }
-    }
-</script>
+
+
+
 
 @section Styles{
     <style>

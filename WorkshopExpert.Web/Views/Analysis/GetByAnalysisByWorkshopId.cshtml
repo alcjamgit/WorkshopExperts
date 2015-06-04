@@ -1,13 +1,15 @@
 ﻿@model WorkshopExpert.Web.Models.AnalysisEditViewModel
 
+        @using (Html.BeginForm("Update", "Analysis", FormMethod.Post, new { enctype = "multipart/form-data", id = "updateAnalysis" }))
 
-        @using (Html.BeginForm())
         {
             @Html.AntiForgeryToken()
 
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-            @Html.HiddenFor(model => model.Id)
-            @Html.HiddenFor(model => model.Workshop_Id)
+            <input type="hidden" value="@Model.Id" name="Id" />
+            <input type="hidden" value="@Model.Workshop_Id" name="Workshop_Id" />
+            @*@Html.Hidden(model => model.Id)
+            @Html.HiddenFor(model => model.Workshop_Id)*@
 
             <div class="form-group">
                 @Html.LabelFor(model => model.ProposedWorkshopTitle)
@@ -44,6 +46,7 @@
             </div>
 
         }
+
 
 
 

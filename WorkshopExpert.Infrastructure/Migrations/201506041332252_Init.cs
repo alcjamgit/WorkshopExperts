@@ -18,11 +18,10 @@ namespace WorkshopExpert.Infrastructure.Migrations
                         AttendeeProfile = c.String(),
                         ProblemToOvercome = c.String(),
                         NeedToFulfill = c.String(),
-                        Workshop_Id1 = c.Guid(),
                     })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.Workshops", t => t.Workshop_Id1)
-                .Index(t => t.Workshop_Id1);
+                .ForeignKey("dbo.Workshops", t => t.Workshop_Id, cascadeDelete: true)
+                .Index(t => t.Workshop_Id);
             
             CreateTable(
                 "dbo.Workshops",
@@ -38,10 +37,10 @@ namespace WorkshopExpert.Infrastructure.Migrations
                         ModifiedDate = c.DateTime(nullable: false),
                     })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.Categories", t => t.Category_Id)
+                .ForeignKey("dbo.Categories", t => t.Category_Id, cascadeDelete: true)
                 .ForeignKey("dbo.AspNetUsers", t => t.CreatedBy)
                 .ForeignKey("dbo.AspNetUsers", t => t.ModifiedBy)
-                .ForeignKey("dbo.WorkshopTypes", t => t.Type_Id)
+                .ForeignKey("dbo.WorkshopTypes", t => t.Type_Id, cascadeDelete: true)
                 .Index(t => t.Category_Id)
                 .Index(t => t.Type_Id)
                 .Index(t => t.CreatedBy)
@@ -66,11 +65,13 @@ namespace WorkshopExpert.Infrastructure.Migrations
                         TopicTitle = c.String(),
                         DeliveyMethod_Id = c.Int(nullable: false),
                         Duration = c.Long(nullable: false),
-                        Workshop_Id = c.Guid(),
+                        Workshop_Id = c.Guid(nullable: false),
                     })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.DeliveryMethods", t => t.DeliveyMethod_Id)
-                .ForeignKey("dbo.Workshops", t => t.Workshop_Id)
+                .ForeignKey("dbo.DeliveryMethods", t => t.DeliveyMethod_Id, cascadeDelete: true)
+                .ForeignKey("dbo.TimeSlots", t => t.TimeSlot_Id, cascadeDelete: true)
+                .ForeignKey("dbo.Workshops", t => t.Workshop_Id, cascadeDelete: true)
+                .Index(t => t.TimeSlot_Id)
                 .Index(t => t.DeliveyMethod_Id)
                 .Index(t => t.Workshop_Id);
             
@@ -85,6 +86,15 @@ namespace WorkshopExpert.Infrastructure.Migrations
                 .PrimaryKey(t => t.Id);
             
             CreateTable(
+                "dbo.TimeSlots",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        Name = c.String(),
+                    })
+                .PrimaryKey(t => t.Id);
+            
+            CreateTable(
                 "dbo.SummaryChecklists",
                 c => new
                     {
@@ -94,7 +104,7 @@ namespace WorkshopExpert.Infrastructure.Migrations
                         Workshop_Id = c.Guid(nullable: false),
                     })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.Workshops", t => t.Workshop_Id)
+                .ForeignKey("dbo.Workshops", t => t.Workshop_Id, cascadeDelete: true)
                 .Index(t => t.Workshop_Id);
             
             CreateTable(
@@ -102,8 +112,7 @@ namespace WorkshopExpert.Infrastructure.Migrations
                 c => new
                     {
                         Id = c.String(nullable: false, maxLength: 128),
-                        FirstName = c.String(),
-                        LastName = c.String(),
+                        FullName = c.String(),
                         BusinessName = c.String(),
                         BusinessType_Id = c.Int(nullable: false),
                         Country_Id = c.Int(nullable: false),
@@ -120,8 +129,8 @@ namespace WorkshopExpert.Infrastructure.Migrations
                         UserName = c.String(nullable: false, maxLength: 256),
                     })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.BusinessTypes", t => t.BusinessType_Id)
-                .ForeignKey("dbo.Countries", t => t.Country_Id)
+                .ForeignKey("dbo.BusinessTypes", t => t.BusinessType_Id, cascadeDelete: true)
+                .ForeignKey("dbo.Countries", t => t.Country_Id, cascadeDelete: true)
                 .Index(t => t.BusinessType_Id)
                 .Index(t => t.Country_Id)
                 .Index(t => t.UserName, unique: true, name: "UserNameIndex");
@@ -145,7 +154,7 @@ namespace WorkshopExpert.Infrastructure.Migrations
                         ClaimValue = c.String(),
                     })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.AspNetUsers", t => t.UserId)
+                .ForeignKey("dbo.AspNetUsers", t => t.UserId, cascadeDelete: true)
                 .Index(t => t.UserId);
             
             CreateTable(
@@ -166,7 +175,7 @@ namespace WorkshopExpert.Infrastructure.Migrations
                         UserId = c.String(nullable: false, maxLength: 128),
                     })
                 .PrimaryKey(t => new { t.LoginProvider, t.ProviderKey, t.UserId })
-                .ForeignKey("dbo.AspNetUsers", t => t.UserId)
+                .ForeignKey("dbo.AspNetUsers", t => t.UserId, cascadeDelete: true)
                 .Index(t => t.UserId);
             
             CreateTable(
@@ -177,8 +186,8 @@ namespace WorkshopExpert.Infrastructure.Migrations
                         RoleId = c.String(nullable: false, maxLength: 128),
                     })
                 .PrimaryKey(t => new { t.UserId, t.RoleId })
-                .ForeignKey("dbo.AspNetUsers", t => t.UserId)
-                .ForeignKey("dbo.AspNetRoles", t => t.RoleId)
+                .ForeignKey("dbo.AspNetUsers", t => t.UserId, cascadeDelete: true)
+                .ForeignKey("dbo.AspNetRoles", t => t.RoleId, cascadeDelete: true)
                 .Index(t => t.UserId)
                 .Index(t => t.RoleId);
             
@@ -206,7 +215,7 @@ namespace WorkshopExpert.Infrastructure.Migrations
         public override void Down()
         {
             DropForeignKey("dbo.AspNetUserRoles", "RoleId", "dbo.AspNetRoles");
-            DropForeignKey("dbo.Analyses", "Workshop_Id1", "dbo.Workshops");
+            DropForeignKey("dbo.Analyses", "Workshop_Id", "dbo.Workshops");
             DropForeignKey("dbo.Workshops", "Type_Id", "dbo.WorkshopTypes");
             DropForeignKey("dbo.Workshops", "ModifiedBy", "dbo.AspNetUsers");
             DropForeignKey("dbo.Workshops", "CreatedBy", "dbo.AspNetUsers");
@@ -217,6 +226,7 @@ namespace WorkshopExpert.Infrastructure.Migrations
             DropForeignKey("dbo.AspNetUsers", "BusinessType_Id", "dbo.BusinessTypes");
             DropForeignKey("dbo.SummaryChecklists", "Workshop_Id", "dbo.Workshops");
             DropForeignKey("dbo.Developments", "Workshop_Id", "dbo.Workshops");
+            DropForeignKey("dbo.Developments", "TimeSlot_Id", "dbo.TimeSlots");
             DropForeignKey("dbo.Developments", "DeliveyMethod_Id", "dbo.DeliveryMethods");
             DropForeignKey("dbo.Workshops", "Category_Id", "dbo.Categories");
             DropIndex("dbo.AspNetRoles", "RoleNameIndex");
@@ -230,11 +240,12 @@ namespace WorkshopExpert.Infrastructure.Migrations
             DropIndex("dbo.SummaryChecklists", new[] { "Workshop_Id" });
             DropIndex("dbo.Developments", new[] { "Workshop_Id" });
             DropIndex("dbo.Developments", new[] { "DeliveyMethod_Id" });
+            DropIndex("dbo.Developments", new[] { "TimeSlot_Id" });
             DropIndex("dbo.Workshops", new[] { "ModifiedBy" });
             DropIndex("dbo.Workshops", new[] { "CreatedBy" });
             DropIndex("dbo.Workshops", new[] { "Type_Id" });
             DropIndex("dbo.Workshops", new[] { "Category_Id" });
-            DropIndex("dbo.Analyses", new[] { "Workshop_Id1" });
+            DropIndex("dbo.Analyses", new[] { "Workshop_Id" });
             DropTable("dbo.AspNetRoles");
             DropTable("dbo.WorkshopTypes");
             DropTable("dbo.AspNetUserRoles");
@@ -244,6 +255,7 @@ namespace WorkshopExpert.Infrastructure.Migrations
             DropTable("dbo.BusinessTypes");
             DropTable("dbo.AspNetUsers");
             DropTable("dbo.SummaryChecklists");
+            DropTable("dbo.TimeSlots");
             DropTable("dbo.DeliveryMethods");
             DropTable("dbo.Developments");
             DropTable("dbo.Categories");

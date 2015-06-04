@@ -36,14 +36,14 @@
         {
             model.Id(w => w.Id);
             model.Field(w => w.CreatedDate).Editable(false);
-            model.Field(w => w.Id).Editable(false).DefaultValue(Guid.Empty);
+            model.Field(w => w.Id).Editable(false).DefaultValue(Guid.NewGuid());
 
         })
 
         .Create(update => update.Action("EditingPopup_Create", "Workshop"))
-                .Read(read => read.Action("EditingPopup_Read", "Workshop"))
-            .Update(update => update.Action("EditingPopup_Update", "Workshop"))
-            .Destroy(update => update.Action("EditingPopup_Destroy", "Workshop"))
+        .Read(read => read.Action("EditingPopup_Read", "Workshop"))
+        .Update(update => update.Action("EditingPopup_Update", "Workshop"))
+        .Destroy(update => update.Action("EditingPopup_Destroy", "Workshop"))
     )
 )
 

@@ -61,6 +61,56 @@
     </div>
 </div>
 
+@section scripts{
+    <script type="text/javascript">
+        @*$(document).ready(function () {
+            alert("aha");
+            $("#updateAnalysis").submit(function (e) {
+                e.preventDefault();
+                alert("hoowa");
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Content("~/Analysis/UpdateViaAjax")',
+                    
+                    success: function (e) {
+                        alert('success');
+                    }
+
+                });
+                alert("ahoo");
+            });
+        });*@
+        function error_handler(e) {
+            if (e.errors) {
+                var message = "Errors:\n";
+                $.each(e.errors, function (key, value) {
+                    if ('errors' in value) {
+                        $.each(value.errors, function () {
+                            message += this + "\n";
+                        });
+                    }
+                });
+
+                var grid = $("#Grid").data("kendoGrid");
+                grid.one("dataBinding", function (e) {
+                    e.preventDefault();   // cancel grid rebind if error occurs  
+                });
+
+                alert(message);
+            }
+        }
+
+
+
+
+    </script>
+
+
+
+
+ }
+
+
 @section styles{
     <style>
         .k-content input.form-control{

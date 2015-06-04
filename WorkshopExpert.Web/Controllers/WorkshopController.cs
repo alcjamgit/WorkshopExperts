@@ -65,8 +65,25 @@ namespace WorkshopExpert.Web.Controllers
                 _db.Analyses.Add(analysis);
 
                 _db.SaveChanges();
-            }
 
+                workshopVm.CreatedDate = workshopModel.CreateDate;
+            }
+            
+            return Json(new[] { workshopVm }.ToDataSourceResult(request, ModelState));
+        }
+
+        [AcceptVerbs(HttpVerbs.Post)]
+        public ActionResult EditingPopup_Destroy([DataSourceRequest] DataSourceRequest request, WorkshopGridItemVm workshopVm)
+        {
+
+            if (workshopVm != null && ModelState.IsValid)
+            {
+                var devToDelete = new Workshop { Id = workshopVm.Id };
+
+                //var devToDelete = _db.Development.Find(developmentGrid.Id);
+                _db.Entry(devToDelete).State = EntityState.Deleted;
+                _db.SaveChanges();
+            }
             return Json(new[] { workshopVm }.ToDataSourceResult(request, ModelState));
         }
 
@@ -82,8 +99,13 @@ namespace WorkshopExpert.Web.Controllers
                             Title = w.Title,
                             WorkshopType_Id = w.Type_Id,
                         }).FirstOrDefault();
-            model.WorkshopType = new SelectList(_db.WorkshopTypes.AsEnumerable(), "Id", "Name");
-            return View(model);
+            if (model != null )
+            {
+                model.WorkshopType = new SelectList(_db.WorkshopTypes.AsEnumerable(), "Id", "Name");
+                return View(model);
+            }
+            
+            return RedirectToAction("Index");
         }
     }
 }
