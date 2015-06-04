@@ -51,14 +51,19 @@ namespace WorkshopExpert.Web.Controllers
         {
             if (workshopVm != null && ModelState.IsValid)
             {
+                var workshopId = Guid.NewGuid();
                 var workshopModel = new Workshop
                 {
-                    Id = Guid.NewGuid(),
+                    Id = workshopId,
                     Title = workshopVm.Title,
                     Type_Id = workshopVm.WorkshopType_Id,
                     Category_Id = workshopVm.Category_Id,
                 };
                 _db.Workshops.Add(workshopModel);
+
+                var analysis = new Analysis { Id = Guid.NewGuid(), Workshop_Id = workshopId };
+                _db.Analyses.Add(analysis);
+
                 _db.SaveChanges();
             }
 
@@ -70,7 +75,15 @@ namespace WorkshopExpert.Web.Controllers
             ViewBag.Categories = new SelectList(_db.Categories.AsEnumerable(), "Id", "Name");
             ViewBag.WorkshopTypes = new SelectList(_db.WorkshopTypes.AsEnumerable(), "Id", "Name");
             var modelId = new Guid(id);
-            var model = _db.Workshops.Where(w => w.Id == modelId).FirstOrDefault();
+            var model = (from w in _db.Workshops
+                        where w.Id == modelId
+                        select new WorkshopEditVM
+                        {
+                            Id = modelId,
+                            Title = w.Title,
+                            WorkshopType_Id = w.Type_Id,
+                        }).FirstOrDefault();
+            model.WorkshopType = new SelectList(_db.WorkshopTypes.AsEnumerable(), "Id", "Name");
             return View(model);
         }
     }

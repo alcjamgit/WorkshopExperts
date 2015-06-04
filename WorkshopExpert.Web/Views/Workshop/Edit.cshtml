@@ -1,57 +1,36 @@
-﻿@model WorkshopExpert.Core.Entities.Workshop
+﻿@model WorkshopExpert.Web.Models.WorkshopEditVM
 @using Kendo.Mvc
-@{
-    ViewBag.Title = "GetDetails";
-}
+@{ ViewBag.Title = "GetDetails";}
 <br />
 
+<div class="panel panel-default">
+    <div class="panel-heading">Edit Workshop</div>
+    <div class="panel-body">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.Id)
 
+            <div class="form-group">
 
-    <div class="row">
-        <div class="panel panel-default">
-            <div class="panel-heading"></div>
-            <div class="panel-body">
-                @using (Html.BeginForm())
-                {
-                    @Html.AntiForgeryToken()
-                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-                    @Html.HiddenFor(model => model.Id)
+                    @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label" })
+                    @Html.TextBoxFor(model => model.Title, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
 
-                    <div class="form-group">
-                        <div class="col-md-10">
-                            @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label" })
-                            @Html.TextBoxFor(model => model.Title, new { @class = "form-control" })
-                            @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <div class="col-md-10">
-                            @Html.LabelFor(model => model.Category_Id, htmlAttributes: new { @class = "control-label" })
-                            @Html.EditorFor(model => model.Title, new { @class = "form-control" })
-                            @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.Type_Id, htmlAttributes: new { @class = "control-label col-md-2" })
-                        <div class="col-md-10">
-                            @Html.EditorFor(model => model.Type_Id, new { htmlAttributes = new { @class = "form-control" } })
-                            @Html.ValidationMessageFor(model => model.Type_Id, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
-
-
-                }
             </div>
-        </div>
-        
-        
+
+            <div class="form-group">
+
+                    @Html.LabelFor(model => model.WorkshopType_Id, htmlAttributes: new { @class = "control-label" })
+                    @Html.DropDownListFor(model => model.WorkshopType_Id, Model.WorkshopType, "--Select Type--", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.WorkshopType_Id, "", new { @class = "text-danger" })
+
+            </div>
+        }
     </div>
-   
 
-
-
+</div>
 
 
 @(Html.Kendo().TabStrip()
@@ -68,28 +47,20 @@
 
                   
               tabstrip.Add().Text("Biography")
-                  .Content(@<text>
-                    <div class="weather">
-                        <h2>16<span>&ordm;C</span></h2>
-                        <p>Cloudy weather in Moscow.</p>
-                    </div>
-                    <span class="cloudy">&nbsp;</span>
-                </text>);
+                  .Content(@<text>Content not yet available</text>);
 
               tabstrip.Add().Text("Summary Checklist")
                   .Content(@<text>
-                    <div class="weather">
-                        <h2>17<span>&ordm;C</span></h2>
-                        <p>Rainy weather in Sidney.</p>
-                    </div>
-                    <span class="rainy">&nbsp;</span>
+                    Content not yet available
                 </text>);
           })
 )
+
 @section styles{
     <style>
-        .k-dropdown {
-            width: 100%;
+        .k-content input.form-control{
+            height:20px;
         }
     </style>
+    
     }
