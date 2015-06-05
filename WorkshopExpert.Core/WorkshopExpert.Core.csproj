@@ -55,6 +55,7 @@
     <Compile Include="ApplicationServices\IFileService.cs" />
     <Compile Include="ApplicationServices\ICurrentUserService.cs" />
     <Compile Include="DomainServices\IAuditable.cs" />
+    <Compile Include="DomainServices\SummaryChecklistGenerator.cs" />
     <Compile Include="Entities\Analysis.cs" />
     <Compile Include="Entities\ApplicationUser.cs" />
     <Compile Include="Entities\BusinessType.cs" />

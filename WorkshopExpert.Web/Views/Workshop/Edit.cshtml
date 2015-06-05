@@ -52,9 +52,7 @@
                       .Content(@<text>Content not yet available</text>);
 
                   tabstrip.Add().Text("Summary Checklist")
-                      .Content(@<text>
-                        Content not yet available
-                    </text>);
+                      .LoadContentFrom("Index", "Checklist", new { id = Model.Id });
               })
             )
         </div>
@@ -80,25 +78,25 @@
                 alert("ahoo");
             });
         });*@
-        function error_handler(e) {
-            if (e.errors) {
-                var message = "Errors:\n";
-                $.each(e.errors, function (key, value) {
-                    if ('errors' in value) {
-                        $.each(value.errors, function () {
-                            message += this + "\n";
-                        });
-                    }
-                });
+        //function error_handler(e) {
+        //    if (e.errors) {
+        //        var message = "Errors:\n";
+        //        $.each(e.errors, function (key, value) {
+        //            if ('errors' in value) {
+        //                $.each(value.errors, function () {
+        //                    message += this + "\n";
+        //                });
+        //            }
+        //        });
 
-                var grid = $("#Grid").data("kendoGrid");
-                grid.one("dataBinding", function (e) {
-                    e.preventDefault();   // cancel grid rebind if error occurs  
-                });
+        //        var grid = $("#Grid").data("kendoGrid");
+        //        grid.one("dataBinding", function (e) {
+        //            e.preventDefault();   // cancel grid rebind if error occurs  
+        //        });
 
-                alert(message);
-            }
-        }
+        //        alert(message);
+        //    }
+        //}
 
 
 

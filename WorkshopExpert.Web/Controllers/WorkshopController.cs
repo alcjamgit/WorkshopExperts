@@ -11,6 +11,7 @@ using WorkshopExpert.Infrastructure.DAL;
 using WorkshopExpert.Web.Models;
 using WorkshopExpert.Infrastructure.BLL.ApplicationServices;
 using System.Data.Entity;
+using WorkshopExpert.Core.DomainServices;
 
 namespace WorkshopExpert.Web.Controllers
 {
@@ -20,7 +21,6 @@ namespace WorkshopExpert.Web.Controllers
         private readonly ApplicationDbContext _db;
         public WorkshopController()
         {
-
             _db = new ApplicationDbContext(new CurrentUserService(System.Web.HttpContext.Current.User.Identity));
         }
         public ActionResult Index()
@@ -61,9 +61,19 @@ namespace WorkshopExpert.Web.Controllers
                 };
                 _db.Workshops.Add(workshopModel);
 
+                //Add Analysis and Design record
                 var analysis = new Analysis { Id = Guid.NewGuid(), Workshop_Id = workshopId };
                 _db.Analyses.Add(analysis);
 
+                //Add Summary Checklist record
+                List<string> checkList = SummaryChecklistGenerator.GetWorkshopCheckList();
+                foreach (var item in checkList)
+                {
+                    var itemCheckList = new SummaryChecklist { Workshop_Id = workshopId, Description = item, IsCompleted = false };
+                    _db.SummaryChecklists.Add(itemCheckList);
+                }
+
+                //Commit changes
                 _db.SaveChanges();
 
                 workshopVm.CreatedDate = workshopModel.CreateDate;
